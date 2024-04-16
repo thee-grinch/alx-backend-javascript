@@ -7,3 +7,10 @@ export default function getResponseFromAPI(success) {
     }
   });
 }
+export default async function getResponseFromAPI(success) {
+    if (success) {
+        return { status: 200, body: 'Success' };
+    } else {
+        throw new Error('The fake API is not working currently');
+    }
+}

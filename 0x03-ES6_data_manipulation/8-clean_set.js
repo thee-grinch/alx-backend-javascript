@@ -1,23 +1,20 @@
 export default function cleanSet(set, startString) {
-  if (!set || !startString) {
-    return '';
-  }
-  if (typeof set !== 'object' || !Array.isArray([...set])) {
-    return '';
-  }
-  if (typeof startString !== 'string') {
-    return '';
-  }
-  let result = '';
-
-  for (const value of set) {
-    if (value.startsWith(startString)) {
-      result += `${value.slice(startString.length)}-`;
+    if (
+      !set && !startString && !(set instanceof Set) && typeof startString !== 'string'
+    ) {
+      return '';
     }
+  
+    const parts = [];
+  
+    for (const value of set.values()) {
+      if (typeof value === 'string' && value.startsWith(startString)) {
+        const valueSubStr = value.substring(startString.length);
+  
+        if (valueSubStr && valueSubStr !== value) {
+          parts.push(valueSubStr);
+        }
+      }
+    }
+    return parts.join('-');
   }
-
-  // Remove the trailing dash
-  result = result.slice(0, -1);
-
-  return result;
-}

@@ -2,6 +2,12 @@ export default function cleanSet(set, startString) {
   if (!set || !startString) {
     return '';
   }
+  if (typeof set !== 'object' || !Array.isArray([...set])) {
+    return '';
+  }
+  if (typeof startString !== 'string') {
+    return '';
+  }
   let result = '';
 
   for (const value of set) {
